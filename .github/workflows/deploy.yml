@@ -1,0 +1,23 @@
+name: Deploy
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build
+        run: npm ci && npm run build
+
+      - name: Deploy
+        id: deploy
+        uses: shipstatic/ship-action@v0.2.0-beta
+        with:
+          api-key: ${{ secrets.SHIP_API_KEY }}
+          path: ./dist
+
+      - name: Summary
+        run: echo "Deployed to ${{ steps.deploy.outputs.url }}" >> "$GITHUB_STEP_SUMMARY"
