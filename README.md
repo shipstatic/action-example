@@ -1,20 +1,43 @@
-# Ship Action Example
+# Shipstatic Action Example
 
-A minimal React + TypeScript + Vite app deployed with the [ShipStatic GitHub Action](https://github.com/marketplace/actions/shipstatic).
+[![Deploy](https://github.com/shipstatic/action-example/actions/workflows/deploy.yml/badge.svg)](https://github.com/shipstatic/action-example/actions/workflows/deploy.yml)
 
-## Getting Started
+A React + Vite app deployed to [github-action.shipstatic.com](https://github-action.shipstatic.com) with the [Shipstatic GitHub Action](https://github.com/marketplace/actions/shipstatic).
 
-```bash
-npm install
-npm run dev
+## Workflow
+
+```yaml
+name: Deploy
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+  deployments: write
+  pull-requests: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build
+        run: npm ci && npm run build
+
+      - name: Deploy
+        id: deploy
+        uses: shipstatic/action@v1
+        with:
+          api-key: ${{ secrets.SHIP_API_KEY }}
+          path: ./dist
+          domain: ${{ github.event_name == 'push' && 'github-action.shipstatic.com' || '' }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Summary
+        run: echo "Deployed to ${{ steps.deploy.outputs.url }}" >> "$GITHUB_STEP_SUMMARY"
 ```
 
-## Build
-
-```bash
-npm run build
-```
-
-## Deploy
-
-This project is deployed automatically via the [ShipStatic GitHub Action](https://github.com/marketplace/actions/shipstatic). See `.github/workflows/` for the workflow configuration.
+Push to `main` deploys and links to the domain. Pull requests get a preview deploy with the URL posted as a comment.
