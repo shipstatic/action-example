@@ -20,7 +20,7 @@ jobs:
 
       - name: Deploy
         id: deploy
-        uses: shipstatic/action@v1.0.0
+        uses: shipstatic/action@v1
         with:
           api-key: ${{ secrets.SHIP_API_KEY }}
           path: ./dist
