@@ -1,7 +1,7 @@
 function App() {
   return (
     <main style={{ textAlign: 'center' }}>
-      <h1>Hello World</h1>
+      <h1>Hello from PR</h1>
       <p>
         Deployed with the{' '}
         <a href="https://github.com/marketplace/actions/shipstatic">
