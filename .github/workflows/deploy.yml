@@ -18,6 +18,7 @@ jobs:
         with:
           api-key: ${{ secrets.SHIP_API_KEY }}
           path: ./dist
+          domain: github-action.shipstatic.com
 
       - name: Summary
         run: echo "Deployed to ${{ steps.deploy.outputs.url }}" >> "$GITHUB_STEP_SUMMARY"
