@@ -2,7 +2,7 @@
 
 [![Deploy](https://github.com/shipstatic/action-example/actions/workflows/deploy-domain.yml/badge.svg)](https://github.com/shipstatic/action-example/actions/workflows/deploy-domain.yml)
 
-Example workflows for the [ShipStatic GitHub Action](https://github.com/marketplace/actions/shipstatic) — a React + Vite app deployed to [github-action.shipstatic.com](https://github-action.shipstatic.com).
+Example workflows for the [ShipStatic GitHub Action](https://github.com/marketplace/actions/shipstatic) — a React + Vite app deployed to [action-example.shipstatic.com](https://action-example.shipstatic.com).
 
 ## [`deploy-no-account.yml`](.github/workflows/deploy-no-account.yml) — Free, No Account Needed
 
@@ -77,7 +77,7 @@ jobs:
         with:
           api-key: ${{ secrets.SHIP_API_KEY }}
           path: ./dist
-          domain: github-action.shipstatic.com
+          domain: ${{ vars.DOMAIN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - run: echo "Deployed to ${{ steps.deploy.outputs.url }}" >> "$GITHUB_STEP_SUMMARY"
 ```
