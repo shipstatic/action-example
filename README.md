@@ -1,12 +1,12 @@
-# ShipStatic Action Example
+# shipstatic/action-example
 
 [![Deploy](https://github.com/shipstatic/action-example/actions/workflows/deploy.yml/badge.svg)](https://github.com/shipstatic/action-example/actions/workflows/deploy.yml)
 
-A React + Vite app deployed to [github-action.shipstatic.com](https://github-action.shipstatic.com) with the [ShipStatic GitHub Action](https://github.com/marketplace/actions/shipstatic).
+Example workflows for the [ShipStatic GitHub Action](https://github.com/marketplace/actions/shipstatic) — a React + Vite app deployed to [github-action.shipstatic.com](https://github-action.shipstatic.com).
 
-## Preview — Free, No Account Needed
+## [`preview.yml`](.github/workflows/preview.yml) — Free, No Account Needed
 
-Pull requests get a temporary preview deploy. No API key, no sign-up.
+Pull requests get a preview deploy with the URL posted as a PR comment. No API key, no sign-up — expires in 3 days.
 
 ```yaml
 name: Preview
@@ -14,6 +14,7 @@ on: pull_request
 
 permissions:
   contents: read
+  deployments: write
   pull-requests: write
 
 jobs:
@@ -28,9 +29,9 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-## Deploy — With API Key
+## [`deploy.yml`](.github/workflows/deploy.yml) — Free API Key
 
-Push to `main` deploys permanently with a custom domain.
+Push to `main` deploys permanently with a custom domain. Get a free API key at [my.shipstatic.com/api-key](https://my.shipstatic.com/api-key) and add it as a `SHIP_API_KEY` secret.
 
 ```yaml
 name: Deploy
