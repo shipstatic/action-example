@@ -6,16 +6,17 @@ Example workflows for the [ShipStatic GitHub Action](https://github.com/marketpl
 
 ## [`preview.yml`](.github/workflows/preview.yml) — Free, No Account Needed
 
-Pull requests get a preview deploy with the URL posted as a PR comment. No API key, no sign-up — expires in 3 days.
+Push to `main` deploys a preview with the URL in the deploy summary. No API key, no sign-up — expires in 3 days.
 
 ```yaml
 name: Preview
-on: pull_request
+on:
+  push:
+    branches: [main]
 
 permissions:
   contents: read
   deployments: write
-  pull-requests: write
 
 jobs:
   preview:
