@@ -1,4 +1,4 @@
-name: Deploy
+name: Production
 on:
   push:
     branches: [main]
@@ -8,13 +8,16 @@ permissions:
   deployments: write
 
 jobs:
-  deploy:
+  production:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - run: npm ci && npm run build
-      - uses: shipstatic/action@v1
+      - id: deploy
+        uses: shipstatic/action@v1
         with:
           api-key: ${{ secrets.SHIP_API_KEY }}
           path: ./dist
+          domain: github-action.shipstatic.com
           github-token: ${{ secrets.GITHUB_TOKEN }}
+      - run: echo "Deployed to ${{ steps.deploy.outputs.url }}" >> "$GITHUB_STEP_SUMMARY"

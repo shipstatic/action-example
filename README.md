@@ -1,6 +1,6 @@
 # shipstatic/action-example
 
-[![Deploy](https://github.com/shipstatic/action-example/actions/workflows/deploy.yml/badge.svg)](https://github.com/shipstatic/action-example/actions/workflows/deploy.yml)
+[![Production](https://github.com/shipstatic/action-example/actions/workflows/production.yml/badge.svg)](https://github.com/shipstatic/action-example/actions/workflows/production.yml)
 
 Example workflows for the [ShipStatic GitHub Action](https://github.com/marketplace/actions/shipstatic) — a React + Vite app deployed to [github-action.shipstatic.com](https://github-action.shipstatic.com).
 
@@ -31,7 +31,7 @@ jobs:
 
 ## [`deploy.yml`](.github/workflows/deploy.yml) — Free API Key
 
-Push to `main` deploys permanently with a custom domain. Get a free API key at [my.shipstatic.com/api-key](https://my.shipstatic.com/api-key) and add it as a `SHIP_API_KEY` secret.
+Push to `main` deploys permanently. Get a free API key at [my.shipstatic.com/api-key](https://my.shipstatic.com/api-key) and add it as a `SHIP_API_KEY` secret.
 
 ```yaml
 name: Deploy
@@ -45,6 +45,33 @@ permissions:
 
 jobs:
   deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm ci && npm run build
+      - uses: shipstatic/action@v1
+        with:
+          api-key: ${{ secrets.SHIP_API_KEY }}
+          path: ./dist
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+```
+
+## [`production.yml`](.github/workflows/production.yml) — Free API Key + Custom Domain
+
+Push to `main` deploys permanently and links a custom domain.
+
+```yaml
+name: Production
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  deployments: write
+
+jobs:
+  production:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
