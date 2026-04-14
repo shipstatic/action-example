@@ -4,25 +4,21 @@
 
 A React + Vite app deployed to [github-action.shipstatic.com](https://github-action.shipstatic.com) with the [ShipStatic GitHub Action](https://github.com/marketplace/actions/shipstatic).
 
-## Workflow
+## Preview — Free, No Account Needed
 
-Pull requests get a free preview deploy — no API key, no account. Push to `main` deploys permanently with a custom domain.
+Pull requests get a temporary preview deploy. No API key, no sign-up.
 
 ```yaml
-name: Deploy
-on:
-  push:
-    branches: [main]
-  pull_request:
+name: Preview
+on: pull_request
+
+permissions:
+  contents: read
+  pull-requests: write
 
 jobs:
-  # Free tier — no account needed, expires in 3 days
   preview:
-    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
     steps:
       - uses: actions/checkout@v4
       - run: npm ci && npm run build
@@ -30,14 +26,25 @@ jobs:
         with:
           path: ./dist
           github-token: ${{ secrets.GITHUB_TOKEN }}
+```
 
-  # With API key — permanent deploy + custom domain
-  production:
-    if: github.event_name == 'push'
+## Deploy — With API Key
+
+Push to `main` deploys permanently with a custom domain.
+
+```yaml
+name: Deploy
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  deployments: write
+
+jobs:
+  deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      deployments: write
     steps:
       - uses: actions/checkout@v4
       - run: npm ci && npm run build
