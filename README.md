@@ -1,6 +1,6 @@
 # shipstatic/action-example
 
-[![Production](https://github.com/shipstatic/action-example/actions/workflows/production.yml/badge.svg)](https://github.com/shipstatic/action-example/actions/workflows/production.yml)
+[![Domain](https://github.com/shipstatic/action-example/actions/workflows/domain.yml/badge.svg)](https://github.com/shipstatic/action-example/actions/workflows/domain.yml)
 
 Example workflows for the [ShipStatic GitHub Action](https://github.com/marketplace/actions/shipstatic) — a React + Vite app deployed to [github-action.shipstatic.com](https://github-action.shipstatic.com).
 
@@ -56,12 +56,12 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-## [`production.yml`](.github/workflows/production.yml) — Free API Key + Custom Domain
+## [`domain.yml`](.github/workflows/domain.yml) — Free API Key + Custom Domain
 
 Push to `main` deploys permanently and links a custom domain.
 
 ```yaml
-name: Production
+name: Domain
 on:
   push:
     branches: [main]
@@ -71,7 +71,7 @@ permissions:
   deployments: write
 
 jobs:
-  production:
+  domain:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
