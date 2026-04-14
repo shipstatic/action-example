@@ -54,7 +54,7 @@ jobs:
 
 ## [`deploy-domain.yml`](.github/workflows/deploy-domain.yml) — Free API Key + Custom Domain
 
-Push to `main` deploys permanently and links a custom domain.
+Push to `main` deploys permanently and links a custom domain. Set a `DOMAIN` variable with your domain name (Settings > Variables > Actions).
 
 ```yaml
 name: Deploy
