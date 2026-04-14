@@ -1,15 +1,15 @@
 # shipstatic/action-example
 
-[![Domain](https://github.com/shipstatic/action-example/actions/workflows/domain.yml/badge.svg)](https://github.com/shipstatic/action-example/actions/workflows/domain.yml)
+[![Deploy](https://github.com/shipstatic/action-example/actions/workflows/deploy-domain.yml/badge.svg)](https://github.com/shipstatic/action-example/actions/workflows/deploy-domain.yml)
 
 Example workflows for the [ShipStatic GitHub Action](https://github.com/marketplace/actions/shipstatic) — a React + Vite app deployed to [github-action.shipstatic.com](https://github-action.shipstatic.com).
 
-## [`preview.yml`](.github/workflows/preview.yml) — Free, No Account Needed
+## [`deploy-no-account.yml`](.github/workflows/deploy-no-account.yml) — Free, No Account Needed
 
-Push to `main` deploys a preview with the URL in the deploy summary. No API key, no sign-up — expires in 3 days.
+Push to `main` deploys instantly. No API key, no sign-up, no configuration — expires in 3 days.
 
 ```yaml
-name: Preview
+name: Deploy
 on:
   push:
     branches: [main]
@@ -19,7 +19,7 @@ permissions:
   deployments: write
 
 jobs:
-  preview:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -30,7 +30,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-## [`deploy.yml`](.github/workflows/deploy.yml) — Free API Key
+## [`deploy-api-key.yml`](.github/workflows/deploy-api-key.yml) — Free API Key
 
 Push to `main` deploys permanently. Get a free API key at [my.shipstatic.com/api-key](https://my.shipstatic.com/api-key) and add it as a `SHIP_API_KEY` secret.
 
@@ -57,12 +57,12 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-## [`domain.yml`](.github/workflows/domain.yml) — Free API Key + Custom Domain
+## [`deploy-domain.yml`](.github/workflows/deploy-domain.yml) — Free API Key + Custom Domain
 
 Push to `main` deploys permanently and links a custom domain.
 
 ```yaml
-name: Domain
+name: Deploy
 on:
   push:
     branches: [main]
@@ -72,7 +72,7 @@ permissions:
   deployments: write
 
 jobs:
-  domain:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
