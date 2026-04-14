@@ -1,10 +1,13 @@
-name: Deploy
-on:
-  push:
-    branches: [main]
+name: Preview
+on: pull_request
+
+permissions:
+  contents: read
+  deployments: write
+  pull-requests: write
 
 jobs:
-  deploy:
+  preview:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -12,3 +15,4 @@ jobs:
       - uses: shipstatic/action@v1
         with:
           path: ./dist
+          github-token: ${{ secrets.GITHUB_TOKEN }}

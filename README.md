@@ -14,10 +14,6 @@ on:
   push:
     branches: [main]
 
-permissions:
-  contents: read
-  deployments: write
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -27,7 +23,6 @@ jobs:
       - uses: shipstatic/action@v1
         with:
           path: ./dist
-          github-token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ## [`deploy-api-key.yml`](.github/workflows/deploy-api-key.yml) — Free API Key
@@ -85,6 +80,31 @@ jobs:
           domain: github-action.shipstatic.com
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - run: echo "Deployed to ${{ steps.deploy.outputs.url }}" >> "$GITHUB_STEP_SUMMARY"
+```
+
+## [`preview-pr.yml`](.github/workflows/preview-pr.yml) — PR Preview
+
+Every pull request gets a preview deploy with the URL posted as a comment. Works without an API key — expires in 3 days.
+
+```yaml
+name: Preview
+on: pull_request
+
+permissions:
+  contents: read
+  deployments: write
+  pull-requests: write
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm ci && npm run build
+      - uses: shipstatic/action@v1
+        with:
+          path: ./dist
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ---
