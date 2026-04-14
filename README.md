@@ -58,3 +58,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
       - run: echo "Deployed to ${{ steps.deploy.outputs.url }}" >> "$GITHUB_STEP_SUMMARY"
 ```
+
+---
+
+See the [action documentation](https://github.com/shipstatic/action) for all inputs, outputs, and options.
