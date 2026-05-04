@@ -107,6 +107,28 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
+## [`deploy-password.yml`](.github/workflows/deploy-password.yml) — Password-Protected Deploy
+
+Push to `main` deploys with an unlock prompt — visitors enter the password before viewing. Works on any tier (no API key required). Set a `SHIP_PASSWORD` secret (6–128 characters; whitespace significant) and share it out-of-band with the people who should see the site.
+
+```yaml
+name: Deploy
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm ci && npm run build
+      - uses: shipstatic/action@v1
+        with:
+          path: ./dist
+          password: ${{ secrets.SHIP_PASSWORD }}
+```
+
 ---
 
 See the [action documentation](https://github.com/shipstatic/action) for all inputs, outputs, and options.
