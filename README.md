@@ -109,7 +109,7 @@ jobs:
 
 ## [`deploy-password.yml`](.github/workflows/deploy-password.yml) — Password-Protected Deploy
 
-Push to `main` deploys with an unlock prompt — visitors enter the password before viewing. Works on any tier (no API key required). Set a `SHIP_PASSWORD` secret (6–128 characters; whitespace significant) and share it out-of-band with the people who should see the site.
+Push to `main` deploys with an unlock prompt — visitors enter the password before viewing. Works on any tier (no API key required). Set a `SHIP_PASSWORD` secret (6–128 characters) and share it out-of-band with the people who should see the site.
 
 ```yaml
 name: Deploy
