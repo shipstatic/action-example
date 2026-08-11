@@ -132,3 +132,5 @@ jobs:
 ---
 
 See the [action documentation](https://github.com/shipstatic/action) for all inputs, outputs, and options.
+
+<!-- preview check -->
