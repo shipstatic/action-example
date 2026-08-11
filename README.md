@@ -18,16 +18,16 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - run: npm ci && npm run build
-      - uses: shipstatic/action@v1
+      - uses: shipstatic/action@v2
         with:
           path: ./dist
 ```
 
 ## [`deploy-api-key.yml`](.github/workflows/deploy-api-key.yml) — Free API Key
 
-Push to `main` deploys permanently. Get a free API key at [my.shipstatic.com/api-key](https://my.shipstatic.com/api-key) and add it as a `SHIP_API_KEY` secret.
+Push to `main` deploys permanently. Get a free API key at [my.shipstatic.com/api-key](https://my.shipstatic.com/api-key) and add it as a `SHIP_TOKEN` secret.
 
 ```yaml
 name: Deploy
@@ -43,11 +43,11 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - run: npm ci && npm run build
-      - uses: shipstatic/action@v1
+      - uses: shipstatic/action@v2
         with:
-          api-key: ${{ secrets.SHIP_API_KEY }}
+          token: ${{ secrets.SHIP_TOKEN }}
           path: ./dist
           github-token: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -70,12 +70,12 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - run: npm ci && npm run build
       - id: deploy
-        uses: shipstatic/action@v1
+        uses: shipstatic/action@v2
         with:
-          api-key: ${{ secrets.SHIP_API_KEY }}
+          token: ${{ secrets.SHIP_TOKEN }}
           path: ./dist
           domain: ${{ vars.DOMAIN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -99,9 +99,9 @@ jobs:
   preview:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - run: npm ci && npm run build
-      - uses: shipstatic/action@v1
+      - uses: shipstatic/action@v2
         with:
           path: ./dist
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -121,9 +121,9 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - run: npm ci && npm run build
-      - uses: shipstatic/action@v1
+      - uses: shipstatic/action@v2
         with:
           path: ./dist
           password: ${{ secrets.SHIP_PASSWORD }}

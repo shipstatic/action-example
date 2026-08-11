@@ -13,8 +13,8 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - run: npm ci && npm run build
-      - uses: shipstatic/action@v1
+      - uses: shipstatic/action@v2
         with:
-          api-key: ${{ secrets.SHIP_API_KEY }}
+          token: ${{ secrets.SHIP_TOKEN }}
           path: ./dist
           github-token: ${{ secrets.GITHUB_TOKEN }}
