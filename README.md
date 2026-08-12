@@ -74,14 +74,12 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - run: npm ci && npm run build
-      - id: deploy
-        uses: shipstatic/action@v2
+      - uses: shipstatic/action@v2
         with:
           token: ${{ secrets.SHIP_TOKEN }}
           path: ./dist
           domain: ${{ vars.DOMAIN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
-      - run: echo "Deployed to ${{ steps.deploy.outputs.url }}" >> "$GITHUB_STEP_SUMMARY"
 ```
 
 ## [`preview-pr.yml`](.github/workflows/preview-pr.yml) — PR Preview
