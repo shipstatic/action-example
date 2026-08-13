@@ -1,8 +1,16 @@
+# Deploy to YOUR account on every push — sites never expire.
+#
+# One-time setup: get your free API key at https://my.shipstatic.com/api-key,
+# then in this repository open Settings → Secrets and variables → Actions →
+# "New repository secret". Name it SHIP_TOKEN and paste the key.
 name: Deploy
+
+# Run whenever commits land on the main branch.
 on:
   push:
     branches: [main]
 
+# The workflow only needs to read your code.
 permissions:
   contents: read
 
@@ -10,9 +18,17 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      # Check out your repository so the workflow can read your files.
       - uses: actions/checkout@v7
+
+      # This demo is a Vite app, so it builds first. If your site is a plain
+      # folder of files, delete this line.
       - run: npm ci && npm run build
+
       - uses: shipstatic/action@v2
         with:
+          # Your API key, read from the secret you created above — never
+          # paste a key into this file.
           token: ${{ secrets.SHIP_TOKEN }}
+          # The folder to publish.
           path: ./dist

@@ -1,6 +1,16 @@
+# A live preview for every pull request.
+#
+# The action posts the preview's address as a comment on the pull request
+# and keeps that one comment up to date on every push. No account needed —
+# each preview is public and expires on its own, and the comment shows the
+# exact date.
 name: Preview
+
+# Run for pull requests instead of pushes.
 on: pull_request
 
+# `pull-requests: write` lets the action post the comment. It uses the
+# workflow's own token for that, so there is nothing else to set up.
 permissions:
   contents: read
   pull-requests: write
@@ -9,8 +19,20 @@ jobs:
   preview:
     runs-on: ubuntu-latest
     steps:
+      # Check out your repository so the workflow can read your files.
       - uses: actions/checkout@v7
+
+      # This demo is a Vite app, so it builds first. If your site is a plain
+      # folder of files, delete this line.
       - run: npm ci && npm run build
+
+      # Deploy. `path` is the folder to publish.
       - uses: shipstatic/action@v2
         with:
           path: ./dist
+
+      # Have an account? Add these two lines under `with:` to keep previews
+      # in your account and have them clean themselves up after a week —
+      # no teardown workflow needed:
+      #   token: ${{ secrets.SHIP_TOKEN }}
+      #   ttl: 604800

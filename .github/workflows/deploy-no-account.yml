@@ -1,4 +1,12 @@
+# Deploy on every push — no ShipStatic account needed.
+#
+# This is the whole setup: copy this file into your repository at
+# .github/workflows/deploy.yml and push. The run's Summary (in the Actions
+# tab) shows your site's address, the exact expiry date, and a claim link —
+# open it to keep the site permanently on a free account.
 name: Deploy
+
+# Run whenever commits land on the main branch.
 on:
   push:
     branches: [main]
@@ -7,8 +15,15 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      # Check out your repository so the workflow can read your files.
       - uses: actions/checkout@v7
+
+      # This demo is a Vite app, so it builds first. If your site is a plain
+      # folder of files, delete this line.
       - run: npm ci && npm run build
+
+      # Deploy. `path` is the folder to publish — the build output here;
+      # use `path: .` (or drop the line) for a plain folder at the repo root.
       - uses: shipstatic/action@v2
         with:
           path: ./dist

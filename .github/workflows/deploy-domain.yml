@@ -1,8 +1,17 @@
+# Deploy and put the site at your own domain, in one step.
+#
+# Needs the SHIP_TOKEN secret (see deploy-api-key.yml for the one-time
+# setup). This repo keeps the domain in a repository variable named DOMAIN
+# (Settings → Secrets and variables → Actions → Variables) so the file stays
+# copy-paste clean — writing it inline works too: domain: www.example.com
 name: Deploy
+
+# Run whenever commits land on the main branch.
 on:
   push:
     branches: [main]
 
+# The workflow only needs to read your code.
 permissions:
   contents: read
 
@@ -10,10 +19,21 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      # Check out your repository so the workflow can read your files.
       - uses: actions/checkout@v7
+
+      # This demo is a Vite app, so it builds first. If your site is a plain
+      # folder of files, delete this line.
       - run: npm ci && npm run build
+
       - uses: shipstatic/action@v2
         with:
+          # Your API key — a domain belongs to an account, so this is
+          # required here: without it the deploy is refused before anything
+          # uploads.
           token: ${{ secrets.SHIP_TOKEN }}
+          # The folder to publish.
           path: ./dist
+          # Deploys AND links in one step: when the run goes green, your
+          # site is live at this address.
           domain: ${{ vars.DOMAIN }}
