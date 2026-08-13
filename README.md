@@ -4,6 +4,8 @@
 
 Example workflows for the [ShipStatic GitHub Action](https://github.com/marketplace/actions/shipstatic) — a React + Vite app deployed to [action-example.shipstatic.com](https://action-example.shipstatic.com).
 
+Every one of them writes a summary to its workflow run page — the deployment and its URL, plus the claim link and expiry where the deployment has them. Nothing to configure.
+
 ## [`deploy-no-account.yml`](.github/workflows/deploy-no-account.yml) — Free, No Account Needed
 
 Push to `main` deploys instantly. No API key, no sign-up, no configuration — expires in 3 days.
@@ -69,18 +71,16 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - run: npm ci && npm run build
-      - id: deploy
-        uses: shipstatic/action@v2
+      - uses: shipstatic/action@v2
         with:
           token: ${{ secrets.SHIP_TOKEN }}
           path: ./dist
           domain: ${{ vars.DOMAIN }}
-      - run: echo "Deployed to ${{ steps.deploy.outputs.url }}" >> "$GITHUB_STEP_SUMMARY"
 ```
 
 ## [`preview-pr.yml`](.github/workflows/preview-pr.yml) — PR Preview
 
-Every pull request gets a preview deploy with the URL posted as a comment. Works without an API key — expires in 3 days.
+Every pull request gets a preview deploy, with the URL posted as a comment that updates in place on every push rather than adding a new one. Works without an API key — expires in 3 days, and the comment carries the claim link that keeps it.
 
 ```yaml
 name: Preview
