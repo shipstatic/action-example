@@ -8,7 +8,7 @@ Every one of them writes a summary to its workflow run page — the deployment a
 
 ## [`deploy-no-account.yml`](.github/workflows/deploy-no-account.yml) — Free, No Account Needed
 
-Push to `main` deploys instantly. No API key, no sign-up, no configuration — expires in 3 days.
+Push to `main` deploys instantly. No API key, no sign-up, no configuration — the site is public and expires, and the run's summary shows the exact date beside a claim link that keeps it.
 
 ```yaml
 name: Deploy
@@ -80,7 +80,7 @@ jobs:
 
 ## [`preview-pr.yml`](.github/workflows/preview-pr.yml) — PR Preview
 
-Every pull request gets a preview deploy, with the URL posted as a comment that updates in place on every push rather than adding a new one. Works without an API key — expires in 3 days, and the comment carries the claim link that keeps it.
+Every pull request gets a preview deploy, with the URL posted as a comment that updates in place on every push rather than adding a new one. Works without an API key — the preview expires on its own, and the comment shows the exact date beside the claim link that keeps it.
 
 ```yaml
 name: Preview

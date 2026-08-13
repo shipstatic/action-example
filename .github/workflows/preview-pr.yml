@@ -31,8 +31,8 @@ jobs:
         with:
           path: ./dist
 
-      # Have an account? Add these two lines under `with:` to keep previews
-      # in your account and have them clean themselves up after a week —
-      # no teardown workflow needed:
+      # Have an API key? (One-time setup: see deploy-api-key.yml.) Add these
+      # two lines under `with:` to keep previews in your account and have
+      # them clean themselves up after a week — no teardown workflow needed:
       #   token: ${{ secrets.SHIP_TOKEN }}
       #   ttl: 604800
