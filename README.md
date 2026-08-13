@@ -37,7 +37,6 @@ on:
 
 permissions:
   contents: read
-  deployments: write
 
 jobs:
   deploy:
@@ -49,7 +48,6 @@ jobs:
         with:
           token: ${{ secrets.SHIP_TOKEN }}
           path: ./dist
-          github-token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ## [`deploy-domain.yml`](.github/workflows/deploy-domain.yml) — Free API Key + Custom Domain
@@ -64,7 +62,6 @@ on:
 
 permissions:
   contents: read
-  deployments: write
 
 jobs:
   deploy:
@@ -78,7 +75,6 @@ jobs:
           token: ${{ secrets.SHIP_TOKEN }}
           path: ./dist
           domain: ${{ vars.DOMAIN }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
       - run: echo "Deployed to ${{ steps.deploy.outputs.url }}" >> "$GITHUB_STEP_SUMMARY"
 ```
 
@@ -92,7 +88,6 @@ on: pull_request
 
 permissions:
   contents: read
-  deployments: write
   pull-requests: write
 
 jobs:
@@ -104,7 +99,6 @@ jobs:
       - uses: shipstatic/action@v2
         with:
           path: ./dist
-          github-token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ## [`deploy-password.yml`](.github/workflows/deploy-password.yml) — Password-Protected Deploy
